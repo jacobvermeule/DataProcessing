@@ -109,10 +109,6 @@ def extract_movies(dom):
         # one movie (Its a beautiful day) does not have actors, movie 43
         elif len(actors) == 42:
             actors.append(None)
-    
-
-
-
 
     # initiate list
     runtime = []
@@ -125,20 +121,28 @@ def extract_movies(dom):
             for i in movie:
                 runtime.append(i.split()[0])
 
+    # create list of all movie elements
+    almost_final_list = [titles, ratings, years_of_release, actors, runtime]
 
+    # initiate final list
+    final_list = []
 
+    # change rows to columns to create 50 rows.
+    for i in range(0, 49):
+        final_list.append([[item[i] for item in almost_final_list]])
 
-
-    return [titles, ratings, years_of_release, actors, runtime]   # REPLACE THIS LINE AS WELL IF APPROPRIATE
+    return final_list
 
 
 def save_csv(outfile, movies):
     """
     Output a CSV file containing highest rated movies.
     """
-    writer = csv.writer(outfile)
-    writer.writerow(['Title', 'Rating', 'Year', 'Actors', 'Runtime'])
 
+    with open('movies.csv', 'w', newline='') as myfile:
+       wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+       wr.writerow(['Title', 'Rating', 'Year', 'Actors', 'Runtime'])
+       wr.writerows(zip(extract_movies(dom)))
     # ADD SOME CODE OF YOURSELF HERE TO WRITE THE MOVIES TO DISK
 
 
