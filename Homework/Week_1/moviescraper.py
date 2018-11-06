@@ -106,7 +106,13 @@ def extract_movies(dom):
                 # empty list
                 movie_actor = []
 
-    # one movie (Its a beautiful day) does not have actors, therefore len is 49
+        # one movie (Its a beautiful day) does not have actors, movie 43
+        elif len(actors) == 42:
+            actors.append(None)
+    
+
+
+
 
     # initiate list
     runtime = []
