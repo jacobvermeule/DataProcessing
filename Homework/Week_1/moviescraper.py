@@ -68,13 +68,62 @@ def extract_movies(dom):
     years_of_release = []
     for i in range(0, len(year_of_release), 4):
         years_of_release.append(year_of_release[i] + year_of_release[i+1] + year_of_release[i+2] + year_of_release[i+3])
-    
-    # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
-    # HIGHEST RATED MOVIES
-    # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
-    # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
 
-    return titles   # REPLACE THIS LINE AS WELL IF APPROPRIATE
+    # initiate actors in list
+    actors = []
+
+    # create seperate list per movie
+    movie_actor = []
+
+    # distinction in html where actors exist
+    x = 'st_0'
+    y = 'st_1'
+    z = 'st_2'
+    a = 'st_3'
+
+    # loop over html page where actors are
+    for movie in page.find_all("a"):
+        if x in movie.get("href"):
+
+            # append actors per movie to list
+            for i in movie:
+                movie_actor.append(i)
+
+        elif y in movie.get("href"):
+            for j in movie:
+                movie_actor.append(j)
+
+        elif z in movie.get("href"):
+            for k in movie:
+                movie_actor.append(k)
+
+        # append every movie to bigger list
+        elif a in movie.get("href"):
+            for l in movie:
+                movie_actor.append(l)
+                actors.append(movie_actor)
+
+                # empty list
+                movie_actor = []
+
+    # one movie (Its a beautiful day) does not have actors, therefore len is 49
+
+    # initiate list
+    runtime = []
+
+    # find location of runtime
+    for movie in page.find_all("span"):
+        if movie.get("class") == ['runtime']:
+
+            # append number to list
+            for i in movie:
+                runtime.append(i.split()[0])
+
+
+
+
+
+    return [titles, ratings, years_of_release, actors, runtime]   # REPLACE THIS LINE AS WELL IF APPROPRIATE
 
 
 def save_csv(outfile, movies):
