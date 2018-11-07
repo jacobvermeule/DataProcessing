@@ -33,8 +33,6 @@ with open("movies.csv", 'r') as csvfile:
 
     # extract rating of every year
     for rows in movies:
-
-
         if rows[2] == '  2008':
             first.append(float(rows[1]))
         if rows[2] == '  2009':
@@ -73,12 +71,14 @@ average2017 = average.append(round((sum(tenth) / len(tenth)), 2))
 years = []
 for i in range(START_YEAR, END_YEAR):
     years.append(i)
-print(years)
+
 # Global dictionary for the data
 data_dict = dict(zip(years, average))
-
+plt.style.use('dark_background')
 plt.title('Average rating of top 50 movies from 2008-2017', fontsize=12, fontweight='bold')
-plt.plot(years, average, 'r', label='line through averages')
+plt.plot(years, average, 'w', label='line through averages')
+plt.plot(years, average, 'ro', label='average point')
+
 plt.xlabel("Year of release")
 plt.ylabel("Average rating on a scale of 1 to 10")
 plt.legend(frameon = True)
