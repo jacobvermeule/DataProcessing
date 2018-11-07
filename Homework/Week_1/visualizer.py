@@ -78,7 +78,6 @@ plt.style.use('dark_background')
 plt.title('Average rating of top 50 movies from 2008-2017', fontsize=12, fontweight='bold')
 plt.plot(years, average, 'w', label='line through averages')
 plt.plot(years, average, 'ro', label='average point')
-
 plt.xlabel("Year of release")
 plt.ylabel("Average rating on a scale of 1 to 10")
 plt.legend(frameon = True)
