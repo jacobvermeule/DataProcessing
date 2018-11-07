@@ -49,7 +49,7 @@ def extract_movies(dom):
     # find all ratings and append to list
     for movie in page.find_all("div"):
         if movie.get("data-value") != None:
-            ratings.append(movie.get("data-value"))
+            ratings.append(float(movie.get("data-value")))
 
     # initiate year of release list
     year_of_release = []
@@ -67,7 +67,7 @@ def extract_movies(dom):
     # make new list with combined digits
     years_of_release = []
     for i in range(0, len(year_of_release), 4):
-        years_of_release.append(year_of_release[i] + year_of_release[i+1] + year_of_release[i+2] + year_of_release[i+3])
+        years_of_release.append(int(year_of_release[i] + year_of_release[i+1] + year_of_release[i+2] + year_of_release[i+3]))
 
     # initiate actors in list
     actors = []
@@ -129,22 +129,20 @@ def extract_movies(dom):
 
     # change rows to columns to create 50 rows.
     for i in range(0, 49):
-        final_list.append([[item[i] for item in almost_final_list]])
+        final_list.append([item[i] for item in almost_final_list])
 
     return final_list
-
 
 def save_csv(outfile, movies):
     """
     Output a CSV file containing highest rated movies.
     """
 
+    # open and write csv
     with open('movies.csv', 'w', newline='') as myfile:
-       wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+       wr = csv.writer(myfile, delimiter=',', quotechar=' ')
        wr.writerow(['Title', 'Rating', 'Year', 'Actors', 'Runtime'])
        wr.writerows(zip(extract_movies(dom)))
-    # ADD SOME CODE OF YOURSELF HERE TO WRITE THE MOVIES TO DISK
-
 
 def simple_get(url):
     """
