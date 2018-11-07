@@ -74,6 +74,8 @@ for i in range(START_YEAR, END_YEAR):
 
 # Global dictionary for the data
 data_dict = dict(zip(years, average))
+
+# plot the data
 plt.style.use('dark_background')
 plt.title('Average rating of top 50 movies from 2008-2017', fontsize=12, fontweight='bold')
 plt.plot(years, average, 'w', label='line through averages')
