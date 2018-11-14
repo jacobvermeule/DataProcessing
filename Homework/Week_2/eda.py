@@ -1,3 +1,8 @@
+# Jacob Vermeule 11328622
+# Minor Programmeren 2018
+# University of Amsterdam
+
+
 import csv
 import pandas as pd
 import matplotlib.pyplot as plt
