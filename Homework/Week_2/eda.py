@@ -15,13 +15,14 @@ input = pd.read_csv("Homework/Week_2/input.csv")
 # fill empty spaces
 new_csv = input.fillna('NaN')
 
-
+# extract required columns
 country = new_csv.Country
 region = new_csv.Region
 pop_density = new_csv.Pop_Density
 infant_mortality = new_csv.Infant_mortality
 gdp = new_csv.GDP
 
+# make dictionary of columns
 dict = {'Country':country, 'region': region, 'population_density': pop_density,
         'infant_mortality': infant_mortality, 'GDP': gdp}
 
