@@ -1,27 +1,55 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Average Temperature in June 2018</title>
-  </head>
-  <body>
-    <h1>Line Chart</h1>
-    <p> Jacob Vermeule 11328622 </p>
-    <script>
-      var fileName = "KNMI.json";
+<script>
+window.onload = function() {
 
-var txtFile = new XMLHttpRequest();
-txtFile.onreadystatechange = function() {
-    if (txtFile.readyState === 4 && txtFile.status == 200) {
-        var KNMI = JSON.parse(txtFile.responseText);
-        for (var values in KNMI){
-          console.log(KNMI[values].Date, KNMI[values].Temperature)
-        }
-    }
+var data_points = [];
+
+var chart = new CanvasJS.Chart("line_chart", {
+	animationEnabled: true,
+	theme: "dark2",
+	title: {
+		text: "Average Temperature in June at Rotterdam, the Netherlands (2018)"
+	},
+	axisY: {
+		title: "Temperature in Celsius degrees",
+		titleFontSize: 24
+	},
+	data: [{
+		type: "line",
+		yValueFormatString: "#,### '&#8451'",
+		dataPoints: data_points
+	}]
+});
+
+function add_data(data) {
+	for (var i = 0; i < data.length; i++) {
+    var date = data[i].Date
+		data_points.push({
+			x: parse(date),
+			y: data[i].Temperature/10
+
+		});
+	}
+	chart.render();
+
 }
-txtFile.open("GET", fileName);
-txtFile.send();
 
+ function parse(date) {
+   var y = date.substr(0,4),
+       m = date.substr(4,2) -1,
+       d = date.substr(6,2);
+     return new Date(y,m,d);
+    }
+$.getJSON("KNMI.json", add_data);
+
+}
 </script>
-    </body>
-    </html>
+</head>
+<body>
+<div id="line_chart" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@ f = open('Homework\Week_3\KNMI.csv', 'r')
 reader = csv.DictReader(f, fieldnames = ("Station","Date","Temperature"))
 
 # Parse the CSV into JSON
-out = json.dumps(reader)
+out = json.dumps([row for row in reader])
 
 # Save the JSON
 f = open('Homework\Week_3\KNMI.json', 'w')
