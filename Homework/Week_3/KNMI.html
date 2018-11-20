@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Average Temperature in June 2018</title>
+  </head>
+  <body>
+    <h1>Line Chart</h1>
+    <p> Jacob Vermeule 11328622 </p>
+    <script>
+      var fileName = "KNMI.json";
+
+var txtFile = new XMLHttpRequest();
+txtFile.onreadystatechange = function() {
+    if (txtFile.readyState === 4 && txtFile.status == 200) {
+        var KNMI = JSON.parse(txtFile.responseText);
+        for (var values in KNMI){
+          console.log(KNMI[values].Date, KNMI[values].Temperature)
+        }
+    }
+}
+txtFile.open("GET", fileName);
+txtFile.send();
+
+</script>
+    </body>
+    </html>
