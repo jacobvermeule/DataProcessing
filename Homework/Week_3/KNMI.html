@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
 <script>
 window.onload = function() {
 
@@ -18,13 +19,17 @@ var chart = new CanvasJS.Chart("line_chart", {
 		title: "Temperature in Celsius degrees",
 		titleFontSize: 24
 	},
-
+  axisX: {
+    title: "Made by: Jacob Vermeule 11328622. JavaScript intro. Data from http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi",
+    titleFontSize: 12
+  },
   // create line, &#8451 stands for celsius degrees
 	data: [{
 		type: "line",
 		yValueFormatString: "#,### '&#8451'",
 		dataPoints: data_points
 	}]
+
 });
 
 // create data points and append to list

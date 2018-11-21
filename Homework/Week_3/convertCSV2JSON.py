@@ -1,7 +1,6 @@
 # Jacob Vermeule 11328622
 # Minor Programmeren 2018
 # University of Amsterdam
-# kijk alles is even lang
 
 import csv
 import json
