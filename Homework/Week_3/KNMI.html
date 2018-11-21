@@ -27,7 +27,8 @@ var chart = new CanvasJS.Chart("line_chart", {
 	data: [{
 		type: "line",
 		yValueFormatString: "#,### '&#8451'",
-		dataPoints: data_points
+		dataPoints: data_points,
+
 	}]
 
 });
@@ -39,11 +40,9 @@ function add_data(data) {
 		data_points.push({
 			x: parse(date),
 			y: data[i].Temperature/10
-
 		});
 	}
 	chart.render();
-
 }
 
 // parse date data into viable format
@@ -56,7 +55,6 @@ function add_data(data) {
 
 // get the json with data
 $.getJSON("KNMI.json", add_data);
-
 }
 </script>
 </head>
