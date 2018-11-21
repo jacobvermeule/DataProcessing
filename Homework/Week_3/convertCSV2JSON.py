@@ -8,7 +8,7 @@ import json
 
 
 # Open the CSV
-f = open('Homework\Week_3\KNMI.csv', 'r')
+f = open('KNMI.csv', 'r')
 
 # Change column names
 reader = csv.DictReader(f, fieldnames = ("Station","Date","Temperature"))
@@ -17,5 +17,5 @@ reader = csv.DictReader(f, fieldnames = ("Station","Date","Temperature"))
 out = json.dumps([row for row in reader])
 
 # Save the JSON
-f = open('Homework\Week_3\KNMI.json', 'w')
+f = open('KNMI.json', 'w')
 f.write(out)

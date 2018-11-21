@@ -4,8 +4,10 @@
 <script>
 window.onload = function() {
 
+// create list for data points
 var data_points = [];
 
+// create chart
 var chart = new CanvasJS.Chart("line_chart", {
 	animationEnabled: true,
 	theme: "dark2",
@@ -16,6 +18,8 @@ var chart = new CanvasJS.Chart("line_chart", {
 		title: "Temperature in Celsius degrees",
 		titleFontSize: 24
 	},
+
+  // create line, &#8451 stands for celsius degrees
 	data: [{
 		type: "line",
 		yValueFormatString: "#,### '&#8451'",
@@ -23,6 +27,7 @@ var chart = new CanvasJS.Chart("line_chart", {
 	}]
 });
 
+// create data points and append to list
 function add_data(data) {
 	for (var i = 0; i < data.length; i++) {
     var date = data[i].Date
@@ -36,12 +41,15 @@ function add_data(data) {
 
 }
 
+// parse date data into viable format
  function parse(date) {
    var y = date.substr(0,4),
        m = date.substr(4,2) -1,
        d = date.substr(6,2);
      return new Date(y,m,d);
     }
+
+// get the json with data
 $.getJSON("KNMI.json", add_data);
 
 }
