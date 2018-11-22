@@ -1,67 +1,110 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
+  <h1>Jacob Vermeule 11328622. JavaScript intro. Data from http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi</h1>
+  <p1>Average Temperature in July at Rotterdam, the Netherlands (2018)</p1>
+</head>
+<body>
+  <meta charset="utf-8">
+  <canvas id="Canvas" width="720" height="340" style="border:1px solid #d3d3d3;"></canvas>
 <script>
-window.onload = function() {
+  var fileName = "KNMI.json";
+var txtFile = new XMLHttpRequest();
+txtFile.onreadystatechange = function() {
+    if (txtFile.readyState === 4 && txtFile.status == 200) {
+        data = JSON.parse(txtFile.responseText);
+        add_data(data);
+    }
+}
+txtFile.open("GET", fileName);
+txtFile.send(); {
 
-// create list for data points
 var data_points = [];
-
-// create chart
-var chart = new CanvasJS.Chart("line_chart", {
-	animationEnabled: true,
-  zoomEnabled: true,
-	theme: "dark2",
-	title: {
-		text: "Average Temperature in July at Rotterdam, the Netherlands (2018)"
-	},
-	axisY: {
-		title: "Temperature in Celsius degrees",
-		titleFontSize: 24
-	},
-  axisX: {
-    title: "Made by: Jacob Vermeule 11328622. JavaScript intro. Data from http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi",
-    titleFontSize: 12
-  },
-  // create line, &#8451 stands for celsius degrees
-	data: [{
-		type: "line",
-		yValueFormatString: "#,### '&#8451'",
-		dataPoints: data_points,
-
-	}]
-
-});
-
-// create data points and append to list
+var x = 4;
 function add_data(data) {
 	for (var i = 0; i < data.length; i++) {
-    var date = data[i].Date
+    var date = data[i].Date;
+    var temperature = data[i].Temperature/10;
+    x += 1;
+    plot(x, (30-temperature));
 		data_points.push({
-			x: parse(date),
+			x: temperature,
 			y: data[i].Temperature/10
 		});
 	}
-	chart.render();
 }
 
-// parse date data into viable format
- function parse(date) {
-   var y = date.substr(0,4),
-       m = date.substr(4,2) -1,
-       d = date.substr(6,2);
-     return new Date(y,m,d);
-    }
 
-// get the json with data
-$.getJSON("KNMI.json", add_data);
+
+var c = document.getElementById("Canvas");
+var ctx = c.getContext("2d");
+ctx.scale(20,10);
+
+
+
+// draw gridlines
+ctx.strokeStyle = "#000000";
+ctx.lineWidth = 0.02;
+ctx.moveTo(4, (30-25))
+ctx.lineTo(35, (30-25))
+ctx.stroke();
+
+ctx.moveTo(4, (30-20))
+ctx.lineTo(35, (30-20))
+ctx.stroke();
+
+ctx.moveTo(4, (30-15))
+ctx.lineTo(35, (30-15))
+ctx.stroke();
+
+ctx.moveTo(4, (30-10))
+ctx.lineTo(35, (30-10))
+ctx.stroke();
+
+ctx.moveTo(4, 30-5)
+ctx.lineTo(35, 30-5)
+ctx.stroke();
+
+ctx.moveTo(4, 30)
+ctx.lineTo(35, 30)
+ctx.stroke();
+
+ctx.moveTo(4, (30))
+ctx.lineTo(4, (0))
+ctx.stroke();
+
+ctx.moveTo(35, (30))
+ctx.lineTo(35, (0))
+ctx.stroke();
+
+// draw data line
+ctx.lineWidth=0.05;
+ctx.beginPath();
+ctx.moveTo(4, (30-20));
+
+// draw text
+var fontSize = 1
+ctx.font = fontSize + "px Arial";
+ctx.fillText("       1 July      5 July      10 July      15 July      20 July      25 July      30 July", 2, 32);
+ctx.fillText("Days", 1, 33);
+ctx.fillText("   0°C", 1, 29.5);
+ctx.fillText("   5°C", 1, 24.5);
+ctx.fillText(" 10°C", 1, 19.5);
+ctx.fillText(" 15°C", 1, 14.5);
+ctx.fillText(" 20°C", 1, 9.5);
+ctx.fillText(" 25°C", 1, 4.5);
+
+ctx.save();
+ctx.translate(0.8, 15);
+ctx.rotate(-Math.PI/2);
+ctx.fillText("Temperature", 8, 0)
+ctx.restore();
+
+function plot(x, temperature) {
+  ctx.lineTo(x, temperature);
+  ctx.stroke();
+}
 }
 </script>
-</head>
-<body>
-<div id="line_chart" style="height: 300px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

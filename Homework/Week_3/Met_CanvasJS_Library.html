@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<script>
+window.onload = function() {
+
+// create list for data points
+var data_points = [];
+
+// create chart
+var chart = new CanvasJS.Chart("line_chart", {
+	animationEnabled: true,
+  zoomEnabled: true,
+	theme: "dark2",
+	title: {
+		text: "Average Temperature in July at Rotterdam, the Netherlands (2018)"
+	},
+	axisY: {
+		title: "Temperature in Celsius degrees",
+		titleFontSize: 24
+	},
+  axisX: {
+    title: "Made by: Jacob Vermeule 11328622. JavaScript intro. Data from http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi",
+    titleFontSize: 12
+  },
+  // create line, &#8451 stands for celsius degrees
+	data: [{
+		type: "line",
+		yValueFormatString: "#,### '&#8451'",
+		dataPoints: data_points,
+
+	}]
+
+});
+
+// create data points and append to list
+function add_data(data) {
+	for (var i = 0; i < data.length; i++) {
+    var date = data[i].Date
+		data_points.push({
+			x: parse(date),
+			y: data[i].Temperature/10
+		});
+	}
+	chart.render();
+}
+
+// parse date data into viable format
+ function parse(date) {
+   var y = date.substr(0,4),
+       m = date.substr(4,2) -1,
+       d = date.substr(6,2);
+     return new Date(y,m,d);
+    }
+
+// get the json with data
+$.getJSON("KNMI.json", add_data);
+}
+</script>
+</head>
+<body>
+<div id="line_chart" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
