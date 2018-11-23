@@ -8,17 +8,22 @@
   <meta charset="utf-8">
   <canvas id="Canvas" width="720" height="340" style="border:1px solid #d3d3d3;"></canvas>
 <script>
+
+// get json
   var fileName = "KNMI.json";
 var txtFile = new XMLHttpRequest();
 txtFile.onreadystatechange = function() {
     if (txtFile.readyState === 4 && txtFile.status == 200) {
         data = JSON.parse(txtFile.responseText);
+
+        //send data to function
         add_data(data);
     }
 }
 txtFile.open("GET", fileName);
 txtFile.send(); {
 
+// add the data
 var data_points = [];
 var x = 4;
 function add_data(data) {
@@ -27,10 +32,7 @@ function add_data(data) {
     var temperature = data[i].Temperature/10;
     x += 1;
     plot(x, (30-temperature));
-		data_points.push({
-			x: temperature,
-			y: data[i].Temperature/10
-		});
+		
 	}
 }
 
@@ -94,6 +96,7 @@ ctx.fillText(" 15°C", 1, 14.5);
 ctx.fillText(" 20°C", 1, 9.5);
 ctx.fillText(" 25°C", 1, 4.5);
 
+// draw vertical text
 ctx.save();
 ctx.translate(0.8, 15);
 ctx.rotate(-Math.PI/2);
