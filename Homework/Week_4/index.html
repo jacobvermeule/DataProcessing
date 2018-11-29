@@ -5,8 +5,6 @@
         <script type="text/javascript" src="d3/d3.v5.js"></script>
     </head>
     <body>
-        <h1>Amount of renewable energy used in Australia from 1960-2016</h1>
-        <h2>Jacob Vermeule 11328622</h2>
         <div id="chart"></div>
         <script type="text/javascript">
         // get json
@@ -169,6 +167,8 @@
       }
           // add some text
           d3.select("head").append("title").text("Bar chart in D3");
+          d3.select("div").append("h2").text("Amount of renewable energy used in Australia from 1960-2016");
+          d3.select("body").append("p").text("Jacob Vermeule 11328622");
 
           d3.select("body").append("p1").text("Deze grafiek laat de toename aan groene energie in kilo ton olie equivalent (KTOE) in Australië zien gedurende de periode 1960-2016.\n");
           d3.select("body").append("p2").text("De y-as start bij het jaar 1960 en elke bar representeert 1 jaar. Voor de kleur heb ik gekozen voor een steeds feller groener wordende kleur om het groener worden van de energie te benadrukken.");
