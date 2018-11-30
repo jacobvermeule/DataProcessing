@@ -1,8 +1,4 @@
 
-https://jacobvermeule.github.io/DataProcessing
+https://jacobvermeule.github.io/DataProcessing/Homework/Week_3/KNMI.html
 
-
-http://localhost:8080/KNMI.html
-
-
-http://localhost:8888/index.html
+https://jacobvermeule.github.io/DataProcessing/Homework/Week_4/index.html
