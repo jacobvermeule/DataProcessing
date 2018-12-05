@@ -1,6 +1,41 @@
+<!--Jacob Vermeule 11328622
+    Minor Programeren 2018
+    University of Amsterdam-->
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <script type="text/javascript" src="d3/d3.v5.js"></script>
-    </head>
+   <head>
+
+     <meta charset="utf-8">
+     <script type="text/javascript" src="d3/d3.v5.js"></script>
+     <script type="text/javascript" src="scatter.js"></script>
+     <link rel="stylesheet"  href="scatter.css">
+     </head>
+     <h1>Scatterplot in D3</h1>
+     <h3>Comparing number of women in science with consumer confidence</h3>
+     <p><i>Jacob Vermeule 11328622<br/>
+       Minor Programmeren 2018<br/>
+       University of Amsterdam</i><br/>
+       Datasources: <a href="http://stats.oecd.org/SDMX-JSON/data/HH_DASH/FRA+DEU+KOR+NLD+PRT+GBR.COCONF.A/all?startTime=2007&endTime=2015">Dataset 1  </a><a href="http://stats.oecd.org/SDMX-JSON/data/MSTI_PUB/TH_WRXRS.FRA+DEU+KOR+NLD+PRT+GBR/all?startTime=2007&endTime=2015">Dataset 2</a></p>
+   <body>
+     <div class="dropdown">
+         <button class="dropbtn">Year</button>
+         <div class="dropdown-content">
+           <a class="m" value="2007" href="#">2007</a>
+           <a class="m" value="2009" href="#">2009</a>
+           <a class="m" value="2011" href="#">2011</a>
+           <a class="m" value="2013" href="#">2013</a>
+           <a class="m" value="2015" href="#">2015</a>
+       </div>
+     </div>
+    <div class="legend1">
+    <h4>Countries</h4>
+     <div class="legend1"> <p class="country-name"><span class="key-dot france"></span>France</p> </div>
+     <div class="legend1"> <p class="country-name"><span class="key-dot netherlands"></span>Netherlands</p> </div>
+     <div class="legend1"> <p class="country-name"><span class="key-dot portugal"></span>Portugal</p> </div>
+     <div class="legend1"> <p class="country-name"><span class="key-dot germany"></span>Germany</p> </div>
+     <div class="legend1"> <p class="country-name"><span class="key-dot uk"></span>United Kingdom</p> </div>
+     <div class="legend1"> <p class="country-name"><span class="key-dot korea"></span>Korea</p> </div>
+  </div>
+</body>
+</html>

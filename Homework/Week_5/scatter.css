@@ -1,0 +1,104 @@
+/* Jacob Vermeule 11328622
+   Minor Programmeren 2018
+   University of Amsterdam*/
+h1 {
+  margin-bottom: 4px;
+}
+h3 {
+  margin-top: 4px;
+}
+h4 {
+     margin-top: 10px;
+     margin-left: 1.5em;
+     margin-bottom: 1px;
+     color: grey;
+ }
+ .country-name {
+     margin: 0 !important;
+ }
+
+ .key-dot {
+     display: inline-block;
+     height: 10px;
+     margin-right: .5em;
+     width: 10px;
+ }
+
+ .france { background: #1f77b4;
+            opacity: 0.6;}
+ .netherlands { background: #FF7F0E;
+                  opacity: 0.6;}
+ .portugal { background: #2CA02C;
+              opacity: 0.6;}
+ .germany { background: #d62728;
+              opacity: 0.6;}
+ .uk { background: #9467bd;
+        opacity: 0.6;}
+ .korea {background: #8c564b;
+            opacity: 0.6;
+ }
+
+ div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #e5edf9;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+ .line {
+   fill: none;
+   stroke: #ffab00;
+   stroke-width: 3;
+ }
+
+ .legend1{
+    overflow:hidden;
+}
+.legend1 {
+    float:left;
+    margin-left: 1.5em;
+    color: grey;
+}
+
+.dropbtn {
+    background-color: #e5edf9;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown{
+  float: right;
+  position: relative;
+  margin-right: 20em;
+  display: inline-block;
+}
+
+.dropdown-content{
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a{
+  color: black;
+  padding:12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: lightsteelblue;}
