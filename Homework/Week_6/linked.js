@@ -69,8 +69,44 @@ window.onload = function() {
         {
             centered: "NB",
             fillKey: "MINOR",
-            radius: 50,
+            radius: 1,
             state: "New Brunswick"
+        },
+        {
+            centered: "YT",
+            fillKey: "MINOR",
+            radius: 25,
+            state: "Yukon"
+        },
+        {
+            centered: "ON",
+            fillKey: "MINOR",
+            radius: 25,
+            state: "Ontario"
+        },
+        {
+            centered: "NF",
+            fillKey: "MINOR",
+            radius: 25,
+            state: "Newfoundland and Labrador"
+        },
+        {
+            centered: "SK",
+            fillKey: "MINOR",
+            radius: 25,
+            state: "Saskatchewan"
+        },
+        {
+            centered: "NS",
+            fillKey: "MINOR",
+            radius: 10,
+            state: "Nova Skotia"
+        },
+        {
+            centered: "PE",
+            fillKey: "MINOR",
+            radius: 1,
+            state: "Prince Edward Island"
         }
     ]
     // // ISO ID code for city or <state></state>
