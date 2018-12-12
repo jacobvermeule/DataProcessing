@@ -85,6 +85,7 @@ window.onload = function() {
               .style("stroke","white")
               .style('stroke-width', 0.3)
               .on('click', function(d,i){
+                d3.selectAll("#chart > *").remove()
                 var data = [];
                 data.push(d.Y1960, d.Y1970, d.Y1980, d.Y1990, d.Y2000, d.Y2010, d.Y2017);
                 linechart(data);
@@ -157,6 +158,7 @@ window.onload = function() {
               .attr('width', width + margin.right + margin.left)
               .attr('height', height + margin.top + margin.bottom)
               .append('g')
+              .attr("id","#chart")
               .attr('transform', 'translate('+margin.left+','+margin.top+')')
               .style('background', '#f4f4f4')
 
@@ -177,6 +179,7 @@ window.onload = function() {
                 .attr('y', height)
 
             // create some nice interaction when moving over bars
+
             .on('mouseover', function(d){
               tooltip.transition()
                 .style('opacity', 1)
@@ -245,6 +248,8 @@ window.onload = function() {
                 .style('stroke', '#000')
               hGuide.selectAll('line')
                 .style('stroke', '#000')
+
+
           }
         };
 
