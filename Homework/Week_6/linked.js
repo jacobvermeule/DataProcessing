@@ -30,7 +30,7 @@ window.onload = function() {
 
       var path = d3.geoPath();
 
-      var svg = d3.select("body")
+      var svg = d3.select("#map")
                   .append("svg")
                   .attr("width", width)
                   .attr("height", height)
@@ -86,9 +86,25 @@ window.onload = function() {
               .style('stroke-width', 0.3)
               .on('click', function(d,i){
                 d3.selectAll("#chart > *").remove()
+
                 var data = [];
                 data.push(d.Y1960, d.Y1970, d.Y1980, d.Y1990, d.Y2000, d.Y2010, d.Y2017);
-                linechart(data);
+                if (d.Y1960 === undefined){
+                  var empty = d3.select("#chart").append("svg")
+                                .attr("width", 200 - margin.right - margin.left)
+                                .attr('height', 100 - margin.top - margin.bottom);
+                  empty.append('text')
+                    .attr('x', 60)
+                    .attr('y', 80)
+                    .style('font-size', '20px')
+                    .text('Kan niet');
+                  empty.append('text')
+                      .attr('x', 70)
+                      .attr('y', 85)
+                      .style("font-size", '16px')
+                      .text(d.properties.name)
+                }
+                else {linechart(data, d.properties.name)};
               })
               .on('mouseover',function(d){
                 tip.show(d);
@@ -114,8 +130,7 @@ window.onload = function() {
             .attr("d", path);
 
 
-          function linechart(values){
-            console.log(values);
+          function linechart(values, country){
             var margin = {
               top: 30,
               right: 30,
@@ -184,6 +199,7 @@ window.onload = function() {
               tooltip.transition()
                 .style('opacity', 1)
               tooltip.html(d)
+                .text("Population:" + d)
                 .style('left', (d3.event.pageX)+'px')
                 .style('top', (d3.event.pageY+'px'))
               d3.select(this).style('opacity', 0.5)
@@ -208,6 +224,12 @@ window.onload = function() {
           })
           .ease(d3.easeElastic)
 
+          myChart.append('text')
+              .attr('x', 0)
+              .attr('y', 50)
+              .style("font-size", '106px')
+              .text('oasjdlkjsalkdjsalkjdlksa')
+
           // adjust scales of axes
           var vScale = d3.scaleLinear()
             .domain([0, d3.max(values)])
@@ -223,7 +245,7 @@ window.onload = function() {
             .tickPadding(5)
 
           // apply styles to axes
-          var vGuide = d3.select('svg')
+          var vGuide = d3.select("#chart").select('svg')
             .append('g')
               vAxis(vGuide)
               vGuide.attr('transform', 'translate('+margin.left+','+margin.top+')')
@@ -233,13 +255,40 @@ window.onload = function() {
               vGuide.selectAll('line')
                 .style('stroke', '#000')
 
+          d3.select("#chart").selectAll(".xaxis text")  // select all the text elements for the xaxis
+          .attr("transform", function(d) {
+             return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+           })
+           // now add titles to the axes
+           d3.select("#chart").select('svg')
+           .append("text")
+             .attr("text-anchor", "centre")
+             .attr('x', 120)
+             .attr("transform", "translate("+ (100/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+             .style('font-size', '15px')
+             .text("Value");
+
+           d3.select("#chart").select('svg')
+           .append("text")
+             .attr('x', 200)  // this makes it easy to centre the text as the transform is applied to the anchor
+             .attr('y', 400)  // centre below axis
+             .style('font-size', '15px')
+             .text("Year");
+
+           d3.select("#chart").select('svg')
+             .append("text")
+               .attr('x', 200)  // this makes it easy to centre the text as the transform is applied to the anchor
+               .attr('y', 20)  // centre below axis
+               .style('font-size', '20px')
+               .text(country);
+
           var hAxis = d3.axisBottom()
             .scale(hScale)
             .tickValues(hScale.domain().filter(function(d, i){
-              return !(i % (10));
+              return !(i % 10);
             }));
 
-          var hGuide = d3.select('svg')
+          var hGuide = d3.select("#chart").select('svg')
             .append('g')
               hAxis(hGuide)
               hGuide.attr('transform', 'translate('+margin.left+','+(height + margin.top)+')')
