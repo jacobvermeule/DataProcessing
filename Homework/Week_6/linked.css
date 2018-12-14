@@ -1,4 +1,40 @@
+h1 {
+  color: grey;
+}
+h3 {
+    margin-top: 15px;
+}
+.country-name {
+    margin: 0 ;
+}
 
+.key-dot {
+    display: inline-block;
+    height: 15px;
+    margin-right: .5em;
+    width: 15px;
+}
+
+.legend1 {
+    margin-right:10px;
+    margin-left:30px;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+
+.queens { background: rgb(247,251,255);}
+.kings { background: rgb(222,235,247);}
+.bronx { background: rgb(198,219,239);}
+.a { background: rgb(158,202,225);}
+.b { background: rgb(107,174,214);}
+.c { background: rgb(66,146,198);}
+.d { background: rgb(33,113,181);}
+.e { background: rgb(8,81,156);}
+.f { background: rgb(8,48,107);}
+.g { background: rgb(3,19,43);}
+.nan { background: #0d1822;}
+}
   .names {
   fill: none;
   stroke: #fff;

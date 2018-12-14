@@ -1,9 +1,11 @@
 window.onload = function() {
 
+  // for the map svg i copied and adjusted some code emailed by the tutors
   var world_pop = "world_pop.json"
   var data = "world.json"
   var requests = [d3.json(world_pop), d3.json(data)];
 
+  // get data
   Promise.all(requests).then(function(response) {
       var world_pop = response[0];
       var data = response[1];
@@ -20,16 +22,19 @@ window.onload = function() {
                     return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Population 2017: </strong><span class='details'>" + format(d.Y2017) +"</span>";
                   })
 
+      // set canvas
       var margin = {top: 0, right: 0, bottom: 0, left: 0},
                   width = 960 - margin.left - margin.right,
                   height = 700 - margin.top - margin.bottom;
 
+      // determine color scale
       var color = d3.scaleThreshold()
           .domain([10000,200000,500000,1000000,5000000,10000000,50000000,100000000,500000000, 1000000000000])
           .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
 
       var path = d3.geoPath();
 
+      // create map svg
       var svg = d3.select("#map")
                   .append("svg")
                   .attr("width", width)
@@ -46,31 +51,26 @@ window.onload = function() {
       svg.call(tip);
       ready(data, world_pop);
 
+      // load in data needed for visualisation
       function ready( data, world_pop) {
         var IndexbyCountry = {};
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y1960; });
         data.features.forEach(function(d) { d.Y1960 = IndexbyCountry[d.id] });
-
         data.features.forEach(function(d) { d.Y1970 = IndexbyCountry[d.id] });
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y1970; });
-
         data.features.forEach(function(d) { d.Y1980 = IndexbyCountry[d.id] });
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y1980; });
-
         data.features.forEach(function(d) { d.Y1990 = IndexbyCountry[d.id] });
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y1990; });
-
         data.features.forEach(function(d) { d.Y2000 = IndexbyCountry[d.id] });
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y2000; });
-
         data.features.forEach(function(d) { d.Y2010 = IndexbyCountry[d.id] });
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y2010; });
-
-
         data.features.forEach(function(d) { d.Y2017 = IndexbyCountry[d.id] });
-
         world_pop.forEach(function(d) { IndexbyCountry[d.id] = +d.Y2017; });
         data.features.forEach(function(d) { d.Y2017 = IndexbyCountry[d.id] });
+
+        // append countries to map svg
         svg.append("g")
             .attr("class", "countries")
           .selectAll("path")
@@ -81,34 +81,43 @@ window.onload = function() {
             .style('stroke', 'white')
             .style('stroke-width', 1.5)
             .style("opacity",0.8)
+
             // tooltips
               .style("stroke","white")
               .style('stroke-width', 0.3)
               .on('click', function(d,i){
+
+                // clear previes bar chart
                 d3.selectAll("#chart > *").remove()
 
+                // put data in list
                 var data = [];
                 data.push(d.Y1960, d.Y1970, d.Y1980, d.Y1990, d.Y2000, d.Y2010, d.Y2017);
+
+                // if NaN, let user know
                 if (d.Y1960 === undefined){
                   var empty = d3.select("#chart").append("svg")
                                 .attr("width", 200 - margin.right - margin.left)
                                 .attr('height', 100 - margin.top - margin.bottom);
                   empty.append('text')
                     .attr('x', 60)
-                    .attr('y', 80)
+                    .attr('y', 100)
                     .style('font-size', '20px')
-                    .text('Kan niet');
+                    .text('No available data');
                   empty.append('text')
                       .attr('x', 70)
                       .attr('y', 85)
                       .style("font-size", '16px')
                       .text(d.properties.name)
                 }
-                else {linechart(data, d.properties.name)};
+
+                // else make barchart
+                else {barchart(data, d.properties.name)};
               })
+
+              // create interaction on map
               .on('mouseover',function(d){
                 tip.show(d);
-
                 d3.select(this)
                   .style("opacity", 1)
                   .style("stroke","white")
@@ -129,16 +138,19 @@ window.onload = function() {
             .attr("class", "names")
             .attr("d", path);
 
+          // for the barchart i was inspired by Traversy Media's tutorial on youtube
+          function barchart(values, country){
 
-          function linechart(values, country){
+            // specify margin of bar svg
             var margin = {
               top: 30,
               right: 30,
               bottom: 40,
               left: 80
             }
-            var height = 400 - margin.top - margin.bottom;
-            var width = 400 - margin.right - margin.left;
+            var height = 300 - margin.top - margin.bottom;
+            var width = 300 - margin.right - margin.left;
+
             // specify duration and delay of the animation
             var durationAnimation = 700
             var delayAnimation = 30
@@ -161,14 +173,12 @@ window.onload = function() {
               .domain(d3.range(0, values.length))
               .range([0, width])
 
-            // create nice dynamic colorspectrum
+            // create dynamic colorspectrum
             var colors = d3.scaleLinear()
               .domain([0,values.length])
               .range(["rgb(158,202,225)","rgb(33,113,181)","rgb(3,19,43)"]);
 
-            // initiate variable to allow interaction
-
-
+            // create new chart svg
             var myChart = d3.select('#chart').append('svg')
               .attr('width', width + margin.right + margin.left)
               .attr('height', height + margin.top + margin.bottom)
@@ -193,8 +203,7 @@ window.onload = function() {
                 })
                 .attr('y', height)
 
-            // create some nice interaction when moving over bars
-
+            // create interaction over bar svg
             .on('mouseover', function(d){
               tooltip.transition()
                 .style('opacity', 1)
@@ -224,12 +233,6 @@ window.onload = function() {
           })
           .ease(d3.easeElastic)
 
-          myChart.append('text')
-              .attr('x', 0)
-              .attr('y', 50)
-              .style("font-size", '106px')
-              .text('oasjdlkjsalkdjsalkjdlksa')
-
           // adjust scales of axes
           var vScale = d3.scaleLinear()
             .domain([0, d3.max(values)])
@@ -255,33 +258,36 @@ window.onload = function() {
               vGuide.selectAll('line')
                 .style('stroke', '#000')
 
-          d3.select("#chart").selectAll(".xaxis text")  // select all the text elements for the xaxis
+          // select text elements for xaxis
+          d3.select("#chart").selectAll(".xaxis text")
           .attr("transform", function(d) {
              return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
            })
-           // now add titles to the axes
+
+           // add titles to axes
            d3.select("#chart").select('svg')
            .append("text")
              .attr("text-anchor", "centre")
              .attr('x', 120)
-             .attr("transform", "translate("+ (100/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+             .attr("transform", "translate(" + (100/2) + ","+(height/2) + ")rotate(-90)")
              .style('font-size', '15px')
              .text("Value");
 
            d3.select("#chart").select('svg')
            .append("text")
-             .attr('x', 200)  // this makes it easy to centre the text as the transform is applied to the anchor
-             .attr('y', 400)  // centre below axis
+             .attr('x', 200)
+             .attr('y', 400)
              .style('font-size', '15px')
              .text("Year");
 
            d3.select("#chart").select('svg')
              .append("text")
-               .attr('x', 200)  // this makes it easy to centre the text as the transform is applied to the anchor
-               .attr('y', 20)  // centre below axis
+               .attr('x', 100)
+               .attr('y', 20)
                .style('font-size', '20px')
                .text(country);
 
+          // specify values shown on xaxis
           var hAxis = d3.axisBottom()
             .scale(hScale)
             .tickValues(hScale.domain().filter(function(d, i){
@@ -297,14 +303,8 @@ window.onload = function() {
                 .style('stroke', '#000')
               hGuide.selectAll('line')
                 .style('stroke', '#000')
-
-
           }
         };
-
-
-
-
     }).catch(function(e){
         throw(e);
   });
