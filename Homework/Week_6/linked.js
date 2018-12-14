@@ -13,9 +13,6 @@ window.onload = function() {
   Promise.all(requests).then(function(response) {
       var world_pop = response[0];
       var data = response[1];
-
-
-
       var format = d3.format(",");
 
       // Set tooltips
@@ -51,7 +48,6 @@ window.onload = function() {
                         .translate( [width / 2, height / 1.5]);
 
       var path = d3.geoPath().projection(projection);
-
       svg.call(tip);
       ready(data, world_pop);
 
