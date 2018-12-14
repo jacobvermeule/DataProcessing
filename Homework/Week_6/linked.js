@@ -1,8 +1,12 @@
+// Jacob Vermeule 11328622
+// Minor Programmeren 2018
+// University of Amsterdam
+
 window.onload = function() {
 
   // for the map svg i copied and adjusted some code emailed by the tutors
-  var world_pop = "world_pop.json"
-  var data = "world.json"
+  var world_pop = "Data/world_pop.json"
+  var data = "Data/world.json"
   var requests = [d3.json(world_pop), d3.json(data)];
 
   // get data
