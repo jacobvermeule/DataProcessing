@@ -268,15 +268,15 @@ window.onload = function() {
            d3.select("#chart").select('svg')
            .append("text")
              .attr("text-anchor", "centre")
-             .attr('x', 120)
-             .attr("transform", "translate(" + (100/2) + ","+(height/2) + ")rotate(-90)")
+             .attr('x', 1)
+             .attr("transform", "translate(" + (60/2) + ","+(height/6.5) + ")rotate(-90)")
              .style('font-size', '15px')
              .text("Value");
 
            d3.select("#chart").select('svg')
            .append("text")
-             .attr('x', 200)
-             .attr('y', 400)
+             .attr('x', 150)
+             .attr('y', 300)
              .style('font-size', '15px')
              .text("Year");
 
